@@ -30,7 +30,7 @@ const projects = [
     description:
       "A local-first code RAG tool for repositories, combining indexing, retrieval, Ollama integration, and developer-focused AI workflows.",
     href: "https://github.com/minorag/minorag",
-    tags: ["RAG", "Ollama", "AI", "Code Search", "Local-First"],
+    tags: ["RAG", "Ollama", "AI", "C#", "Code Search", "Local-First"],
   },
   {
     name: "GitHub",
@@ -46,6 +46,13 @@ const projects = [
       "Backend",
       "Product Engineering",
     ],
+  },
+  {
+    name: "Portfolio Website (this website)",
+    description:
+      "Personal portfolio website built with React and Vite, focused on presenting production systems, distributed architecture work, and real-world engineering experience.",
+    href: "https://github.com/andreikurilo/portfolio",
+    tags: ["TypeScript", "React", "Vite"],
   },
 ];
 
