@@ -58,8 +58,11 @@ const projects = [
   },
 ];
 
+const CRAWL_DURATION_MS = 20000;
+
 export default function App() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [showCrawl, setShowCrawl] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("theme") as "dark" | "light" | null;
@@ -73,9 +76,21 @@ export default function App() {
       ).matches;
       const initial = prefersLight ? "light" : "dark";
       setTheme(initial);
-      document.documentElement.setAttribute("data-theme", initial);
+      document.documentElement.removeAttribute("data-theme");
     }
   }, []);
+
+  useEffect(() => {
+    if (!showCrawl) return;
+
+    const timer = window.setTimeout(() => {
+      setShowCrawl(false);
+    }, CRAWL_DURATION_MS);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [showCrawl]);
 
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
@@ -84,17 +99,72 @@ export default function App() {
     localStorage.setItem("theme", next);
   };
 
+  if (showCrawl) {
+    return (
+      <div className="crawl-overlay" onClick={() => setShowCrawl(false)}>
+        <div className="stars" />
+        <div className="crawl-scene">
+          <div className="crawl">
+            <p className="crawl-lead">
+              A long time ago in software production...
+            </p>
+
+            <h2>ANDREI KURILO</h2>
+
+            <div className="crawl-text">
+              <p>
+                Full-stack software engineer building and owning complex systems
+                end-to-end.
+              </p>
+              <p>
+                From GitOps-based deployment platforms for Kubernetes edge
+                environments to data-intensive energy management and
+                sustainability systems.
+              </p>
+              <p>
+                Focused on reliability, scalability, and real-world impact
+                across architecture, implementation, and production.
+              </p>
+            </div>
+          </div>
+
+          <button
+            className="crawl-close"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowCrawl(false);
+            }}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="page-shell">
       <div className="page-noise" aria-hidden="true" />
       <main className="container">
         <section className="hero card">
-          <p className="eyebrow">
-            Andrei Kurilo · Full-Stack Software Engineer
-            <button className="theme-toggle" onClick={toggleTheme}>
-              {theme === "dark" ? "🌕 Yoda" : "🌑 Vader"}
-            </button>
-          </p>
+          <div className="hero-top">
+            <p className="eyebrow">
+              Andrei Kurilo · Full-Stack Software Engineer
+            </p>
+
+            <div className="hero-controls">
+              <button
+                className="button button-intro"
+                onClick={() => setShowCrawl(true)}
+              >
+                ▶ Play intro
+              </button>
+
+              <button className="theme-toggle" onClick={toggleTheme}>
+                {theme === "dark" ? "🌕 Yoda" : "🌑 Vader"}
+              </button>
+            </div>
+          </div>
 
           <h1>
             Building reliable systems and data-intensive applications used in
