@@ -7,15 +7,16 @@
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  color: rgba(245, 247, 250, 0.96);
-  background:
-    radial-gradient(circle at top, rgba(84, 101, 255, 0.22), transparent 28%),
-    linear-gradient(180deg, #0a0d14 0%, #0f1420 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark light;
 
+  /* default fallback = dark */
+  --page-bg:
+    radial-gradient(circle at top, rgba(84, 101, 255, 0.22), transparent 28%),
+    linear-gradient(180deg, #0a0d14 0%, #0f1420 100%);
   --text-primary: rgba(245, 247, 250, 0.96);
   --text-secondary: rgba(220, 226, 235, 0.84);
   --text-muted: rgba(185, 194, 210, 0.82);
@@ -27,6 +28,86 @@
   --project-border: rgba(255, 255, 255, 0.06);
   --accent: rgba(120, 134, 255, 0.95);
   --accent-2: rgba(86, 202, 255, 0.9);
+  --button-primary-text: #071019;
+  --noise-dot: rgba(255, 255, 255, 0.03);
+  --shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+  --project-hover-bg: rgba(255, 255, 255, 0.045);
+  --project-arrow: rgba(180, 196, 255, 0.92);
+  --tag-text: rgba(255, 255, 255, 0.82);
+}
+
+/* system light only when there is no explicit manual override */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]):not([data-theme="light"]) {
+    --page-bg:
+      radial-gradient(circle at top, rgba(84, 101, 255, 0.12), transparent 30%),
+      linear-gradient(180deg, #f8faff 0%, #edf2fb 100%);
+    --text-primary: #162033;
+    --text-secondary: rgba(22, 32, 51, 0.78);
+    --text-muted: rgba(56, 72, 98, 0.7);
+    --card-bg: rgba(255, 255, 255, 0.72);
+    --card-border: rgba(21, 33, 58, 0.08);
+    --soft-border: rgba(21, 33, 58, 0.12);
+    --soft-bg: rgba(21, 33, 58, 0.04);
+    --project-bg: rgba(255, 255, 255, 0.58);
+    --project-border: rgba(21, 33, 58, 0.08);
+    --accent: #5b6cff;
+    --accent-2: #4fc3f7;
+    --button-primary-text: #ffffff;
+    --noise-dot: rgba(21, 33, 58, 0.035);
+    --shadow: 0 20px 60px rgba(30, 41, 59, 0.08);
+    --project-hover-bg: rgba(255, 255, 255, 0.84);
+    --project-arrow: rgba(91, 108, 255, 0.92);
+    --tag-text: rgba(22, 32, 51, 0.8);
+  }
+}
+
+/* explicit manual light theme */
+:root[data-theme="light"] {
+  --page-bg:
+    radial-gradient(circle at top, rgba(84, 101, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #f8faff 0%, #edf2fb 100%);
+  --text-primary: #162033;
+  --text-secondary: rgba(22, 32, 51, 0.78);
+  --text-muted: rgba(56, 72, 98, 0.7);
+  --card-bg: rgba(255, 255, 255, 0.72);
+  --card-border: rgba(21, 33, 58, 0.08);
+  --soft-border: rgba(21, 33, 58, 0.12);
+  --soft-bg: rgba(21, 33, 58, 0.04);
+  --project-bg: rgba(255, 255, 255, 0.58);
+  --project-border: rgba(21, 33, 58, 0.08);
+  --accent: #5b6cff;
+  --accent-2: #4fc3f7;
+  --button-primary-text: #ffffff;
+  --noise-dot: rgba(21, 33, 58, 0.035);
+  --shadow: 0 20px 60px rgba(30, 41, 59, 0.08);
+  --project-hover-bg: rgba(255, 255, 255, 0.84);
+  --project-arrow: rgba(91, 108, 255, 0.92);
+  --tag-text: rgba(22, 32, 51, 0.8);
+}
+
+/* explicit manual dark theme */
+:root[data-theme="dark"] {
+  --page-bg:
+    radial-gradient(circle at top, rgba(84, 101, 255, 0.22), transparent 28%),
+    linear-gradient(180deg, #0a0d14 0%, #0f1420 100%);
+  --text-primary: rgba(245, 247, 250, 0.96);
+  --text-secondary: rgba(220, 226, 235, 0.84);
+  --text-muted: rgba(185, 194, 210, 0.82);
+  --card-bg: rgba(17, 23, 35, 0.78);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --soft-border: rgba(255, 255, 255, 0.12);
+  --soft-bg: rgba(255, 255, 255, 0.04);
+  --project-bg: rgba(255, 255, 255, 0.03);
+  --project-border: rgba(255, 255, 255, 0.06);
+  --accent: rgba(120, 134, 255, 0.95);
+  --accent-2: rgba(86, 202, 255, 0.9);
+  --button-primary-text: #071019;
+  --noise-dot: rgba(255, 255, 255, 0.03);
+  --shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+  --project-hover-bg: rgba(255, 255, 255, 0.045);
+  --project-arrow: rgba(180, 196, 255, 0.92);
+  --tag-text: rgba(255, 255, 255, 0.82);
 }
 
 * {
@@ -42,6 +123,7 @@ body,
 
 body {
   min-height: 100vh;
+  background: var(--page-bg);
 }
 
 body,
@@ -70,7 +152,7 @@ button {
   inset: 0;
   pointer-events: none;
   background-image: radial-gradient(
-    rgba(255, 255, 255, 0.03) 0.75px,
+    var(--noise-dot) 0.75px,
     transparent 0.75px
   );
   background-size: 24px 24px;
@@ -89,8 +171,9 @@ button {
   border: 1px solid var(--card-border);
   background: var(--card-bg);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-radius: 24px;
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
 }
 
 .hero {
@@ -104,6 +187,9 @@ button {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 h1,
@@ -116,8 +202,9 @@ p {
 h1 {
   margin-bottom: 20px;
   font-size: clamp(1.8rem, 2.8vw, 2.6rem);
-  line-height: 0.98;
+  line-height: 1.05;
   letter-spacing: -0.045em;
+  color: var(--text-primary);
 }
 
 h2 {
@@ -168,13 +255,13 @@ p {
 
 .button:hover {
   transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: color-mix(in srgb, var(--soft-border) 55%, var(--text-primary));
 }
 
 .button-primary {
   border-color: transparent;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #071019;
+  color: var(--button-primary-text);
 }
 
 .button-primary:hover {
@@ -217,8 +304,8 @@ p {
 
 .project:hover {
   transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.045);
+  border-color: var(--soft-border);
+  background: var(--project-hover-bg);
 }
 
 .project p {
@@ -229,7 +316,7 @@ p {
   flex-shrink: 0;
   font-size: 1.2rem;
   line-height: 1;
-  color: rgba(180, 196, 255, 0.92);
+  color: var(--project-arrow);
 }
 
 .tag-list {
@@ -249,7 +336,7 @@ p {
   background: var(--soft-bg);
   font-size: 0.8rem;
   line-height: 1;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--tag-text);
 }
 
 .link-list {
@@ -290,4 +377,24 @@ p {
   h1 {
     max-width: none;
   }
+}
+
+.theme-toggle {
+  cursor: pointer;
+}
+
+.value-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.value-list li {
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.value-list li::marker {
+  color: var(--text-muted);
 }

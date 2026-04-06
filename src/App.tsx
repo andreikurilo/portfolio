@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const LinkedInUrl = "https://www.linkedin.com/in/akurilo/";
 const GitHubUrl = "https://github.com/andreikurilo";
 const XUrl = "https://x.com/andreikurilo";
@@ -57,6 +59,31 @@ const projects = [
 ];
 
 export default function App() {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme") as "dark" | "light" | null;
+
+    if (saved) {
+      setTheme(saved);
+      document.documentElement.setAttribute("data-theme", saved);
+    } else {
+      const prefersLight = window.matchMedia(
+        "(prefers-color-scheme: light)",
+      ).matches;
+      const initial = prefersLight ? "light" : "dark";
+      setTheme(initial);
+      document.documentElement.setAttribute("data-theme", initial);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  };
+
   return (
     <div className="page-shell">
       <div className="page-noise" aria-hidden="true" />
@@ -64,6 +91,9 @@ export default function App() {
         <section className="hero card">
           <p className="eyebrow">
             Andrei Kurilo · Full-Stack Software Engineer
+            <button className="theme-toggle" onClick={toggleTheme}>
+              {theme === "dark" ? "🌕 Yoda" : "🌑 Vader"}
+            </button>
           </p>
 
           <h1>
@@ -72,12 +102,19 @@ export default function App() {
           </h1>
 
           <p>
-            I am a full-stack software engineer experienced in building complex
-            systems from scratch. My work includes a GitOps-based deployment
-            platform for Kubernetes edge environments in critical
-            infrastructure, as well as data-intensive energy management and
-            sustainability systems. I focus on designing reliable, scalable
-            systems and delivering products that solve real-world problems.
+            I am a full-stack software engineer experienced in building and
+            owning complex systems end-to-end.
+          </p>
+          <p>
+            I have developed platforms from the ground up, including a
+            GitOps-based deployment system for Kubernetes edge environments in
+            critical infrastructure, as well as data-intensive energy management
+            and sustainability systems.
+          </p>
+          <p>
+            I take responsibility across the full lifecycle — from architecture
+            and implementation to production — with a focus on reliability,
+            scalability, and real-world impact.
           </p>
 
           <div className="actions">
