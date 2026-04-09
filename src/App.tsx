@@ -52,7 +52,7 @@ const projects = [
   {
     name: "ForgeQ",
     description:
-      "A lightweight distributed job queue built in Go, featuring leasing, heartbeats, retries with backoff, crash recovery, and Prometheus/Grafana observability. Designed to explore reliability patterns and production-grade background processing systems.",
+      "A distributed job queue system built in Go, implementing leasing, heartbeat-based execution, retry strategies with backoff, and crash recovery. Includes end-to-end observability with Prometheus and Grafana, reflecting production-grade background processing patterns.",
     href: "https://github.com/andreikurilo/forgeq",
     tags: [
       "Go",
@@ -61,8 +61,8 @@ const projects = [
       "PostgreSQL",
       "Prometheus",
       "Grafana",
-      "Backend",
       "Concurrency",
+      "Reliability",
       "Observability",
     ],
   },
